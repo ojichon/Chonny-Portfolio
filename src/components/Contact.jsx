@@ -1,6 +1,6 @@
 import { useState, useRef} from "react"
 import { motion } from 'framer-motion'
-import emajiljs from '@emailjs/browser'
+import emailjs from '@emailjs/browser'
 
 import { styles } from '../styles'
 import { EarthCanvas } from "./canvas"
@@ -8,18 +8,61 @@ import { SectionWrapper } from "../hoc"
 import { slideIn } from "../utils/motion"
 
 
+//template_vdz2as8
+// service_2qfcf1k
+// KUdnC0HoxlFUNdSw3
+
 const Contact = () => {
   const formRef = useRef();
-  const [form, setform] = useState({
-    name:'',
-    email: '',
-    message: '',
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
-  const [loading, isLoading] = useState(false)
-  
-  const handleChange = (e) => {}
 
-  const handleSubmit = (e) => {}
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { target } = e;
+    const { name, value } = target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs.send(
+    'service_2qfcf1k',
+    'template_vdz2as8',
+    {
+      from_name: form.name,
+      to_name: 'Chonny',
+      from_email: form.email,
+      to_email: "chonnyji77@gmail.com",
+      message: form.message,
+    },
+    "KUdnC0HoxlFUNdSw3"
+   )
+   .then(() => {
+    setLoading(false);
+    alert('Thanks for the message, I will get back to you as soon ass possible!');
+
+    setForm({
+      name: '',
+      email: "",
+      message: '',
+    })
+   }, (error) => {
+    setLoading(false)
+    console.log(error)
+    alert("Something went wrong.")
+   })
+  }
   
   
   return (
@@ -90,7 +133,7 @@ const Contact = () => {
         variants={slideIn('right', "tween", 0.2, 1)}
         className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
       >
-        <EarthCanvas />
+        <EarthCanvas /> 
       </motion.div>
     </div>
   )
