@@ -3,7 +3,7 @@ import { ComputersCanvas } from "./canvas"
 import { styles } from '../styles'
 
 
-//#a663cc
+//#a663ccƒ
 const Hero = () => {
   return (
     <section className={`relative w-full h-screen mx-auto`}>
